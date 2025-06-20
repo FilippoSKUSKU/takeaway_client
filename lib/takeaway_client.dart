@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:takeaway_client/ui/screens/base_user/user_restaurant_list_page.dart';
-import 'package:takeaway_client/ui/screens/onboarding/register_screen.dart';
 
 class TakeawayClient extends StatelessWidget {
   const TakeawayClient({super.key});
@@ -21,14 +20,13 @@ final _lightTheme = ThemeData.light().copyWith(
   brightness: Brightness.light,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
-    surface: Color.fromARGB(255, 232, 255, 197),
-    seedColor: const Color.fromARGB(255, 197, 255, 110),
+    seedColor: const Color.fromARGB(255, 255, 236, 63),
   ),
 );
 final _darkTheme = ThemeData.dark().copyWith(
   brightness: Brightness.dark,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 197, 255, 110),
+    seedColor: const Color.fromARGB(255, 255, 242, 63),
   ),
 );

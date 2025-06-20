@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:takeaway_client/model/insert_user_dto.dart';
 import 'package:takeaway_client/model/login_dto.dart';
 import 'package:takeaway_client/service/onboarding_service.dart';
 import 'package:takeaway_client/ui/screens/base_user/user_restaurant_list_page.dart';

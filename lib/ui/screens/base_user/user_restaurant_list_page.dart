@@ -40,62 +40,79 @@ class _UserRestaurantListPageState extends State<UserRestaurantListPage> {
     final displayType = MyUtility.getDisplayType(context);
     return Scaffold(
       appBar: AppBar(
+        shadowColor: Theme.of(context).shadowColor,
+        elevation: 5,
         title: Text(
           'Takeaway',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
-      body: LargeScreenBody(
-        largePaneBody: [
-          selected == null
-              ? Center(child: Text('seleziona un ristorante'))
-              : Expanded(child: RistoranteDetail(ristorante: selected!)),
-        ],
-        smallPaneBody: [
-          Text('Cerca il tuo ristorante preferito'),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: searchController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                suffixIcon:
-                    searchController.text.isEmpty
-                        ? null
-                        : IconButton(
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.zero,
-                          onPressed: searchController.clear,
-                          icon: IconButton(
-                            icon: Icon(Icons.clear),
-                            onPressed: searchController.clear,
+      body: Observer(
+        builder:
+            (_) => LargeScreenBody(
+              largePaneBody: [
+                Expanded(
+                  child:
+                      kRistorantiStore.fetchIsLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : kRistorantiStore.fetchGaveError
+                          ? Center(
+                            child: TextButton.icon(
+                              label: const Text('errore nel caricamento'),
+                              onPressed: _fetchAndInit,
+                              icon: Icon(Icons.replay_outlined),
+                            ),
+                          )
+                          : selected != null
+                          ? RistoranteDetail(ristorante: selected!)
+                          : Center(
+                            child: Text(
+                              'seleziona un ristorante',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                icon: Icon(Icons.search),
-                hintText: 'cerca un ristorante o una categoria',
-                labelText: 'nome ristorante/categoria',
-              ),
-            ),
-          ),
-          Expanded(
-            child: Observer(
-              builder:
-                  (_) => ListView.builder(
-                    itemBuilder:
-                        (c, i) => RistoranteCard(
-                          onSelect:
-                              () => setState(
-                                () => selected = kRistorantiStore.toShow[i],
-                              ),
-                          selected:
-                              selected?.id == kRistorantiStore.toShow[i].id,
-                          ristorante: kRistorantiStore.toShow[i],
-                        ),
-                    itemCount: kRistorantiStore.toShow.length,
+                ),
+              ],
+              smallPaneBody: [
+                Text('Cerca il tuo ristorante preferito'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        onPressed: searchController.clear,
+                        icon: Icon(Icons.clear),
+                      ),
+                      icon: Icon(Icons.search),
+                      hintText: 'cerca un ristorante o una categoria',
+                      labelText: 'nome ristorante/categoria',
+                    ),
                   ),
+                ),
+                Expanded(
+                  child: Observer(
+                    builder:
+                        (_) => ListView.builder(
+                          itemBuilder:
+                              (c, i) => RistoranteCard(
+                                onSelect:
+                                    () => setState(
+                                      () =>
+                                          selected = kRistorantiStore.toShow[i],
+                                    ),
+                                selected:
+                                    selected?.id ==
+                                    kRistorantiStore.toShow[i].id,
+                                ristorante: kRistorantiStore.toShow[i],
+                              ),
+                          itemCount: kRistorantiStore.toShow.length,
+                        ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
       ),
     );
   }

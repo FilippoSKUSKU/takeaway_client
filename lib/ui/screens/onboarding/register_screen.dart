@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeaway_client/ui/screens/onboarding/login_form.dart';
 import 'package:takeaway_client/ui/screens/onboarding/register_form.dart';
-import 'package:takeaway_client/utility/my_utility.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

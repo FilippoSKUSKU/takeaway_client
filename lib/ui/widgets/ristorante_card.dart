@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:takeaway_client/model/ristorante_dto.dart';
-import 'package:takeaway_client/utility/mob_stores.dart';
 import 'package:takeaway_client/utility/my_utility.dart';
 
 class RistoranteCard extends StatelessWidget {
@@ -33,18 +32,22 @@ class RistoranteCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color:
                         selected
-                            ? Theme.of(context).colorScheme.inversePrimary
-                            : Theme.of(context).colorScheme.primaryContainer,
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.inversePrimary,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
                     child: Text(
                       ristorante.nome,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                   ),
                 ),

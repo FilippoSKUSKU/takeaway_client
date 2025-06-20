@@ -42,6 +42,42 @@ mixin _$Ristoranti on _Ristoranti, Store {
     });
   }
 
+  late final _$fetchGaveErrorAtom = Atom(
+    name: '_Ristoranti.fetchGaveError',
+    context: context,
+  );
+
+  @override
+  bool get fetchGaveError {
+    _$fetchGaveErrorAtom.reportRead();
+    return super.fetchGaveError;
+  }
+
+  @override
+  set fetchGaveError(bool value) {
+    _$fetchGaveErrorAtom.reportWrite(value, super.fetchGaveError, () {
+      super.fetchGaveError = value;
+    });
+  }
+
+  late final _$fetchIsLoadingAtom = Atom(
+    name: '_Ristoranti.fetchIsLoading',
+    context: context,
+  );
+
+  @override
+  bool get fetchIsLoading {
+    _$fetchIsLoadingAtom.reportRead();
+    return super.fetchIsLoading;
+  }
+
+  @override
+  set fetchIsLoading(bool value) {
+    _$fetchIsLoadingAtom.reportWrite(value, super.fetchIsLoading, () {
+      super.fetchIsLoading = value;
+    });
+  }
+
   late final _$fetchRistorantiListAsyncAction = AsyncAction(
     '_Ristoranti.fetchRistorantiList',
     context: context,
@@ -87,7 +123,9 @@ mixin _$Ristoranti on _Ristoranti, Store {
   String toString() {
     return '''
 ristorantiList: ${ristorantiList},
-toShow: ${toShow}
+toShow: ${toShow},
+fetchGaveError: ${fetchGaveError},
+fetchIsLoading: ${fetchIsLoading}
     ''';
   }
 }

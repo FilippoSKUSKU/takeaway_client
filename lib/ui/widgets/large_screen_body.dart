@@ -11,17 +11,21 @@ class LargeScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: 412, child: Column(children: smallPaneBody)),
-        VerticalDivider(),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: largePaneBody,
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          SizedBox(width: 412, child: Column(children: smallPaneBody)),
+          VerticalDivider(),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: largePaneBody,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

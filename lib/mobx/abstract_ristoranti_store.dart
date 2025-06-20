@@ -16,12 +16,24 @@ abstract class _Ristoranti with Store {
   @observable
   ObservableList<RistoranteDto> toShow = ObservableList<RistoranteDto>();
 
+  @observable
+  bool fetchGaveError = false;
+  @observable
+  bool fetchIsLoading = false;
   @action
   Future<void> fetchRistorantiList() async {
+    fetchIsLoading = true;
     log('fetching');
-    ristorantiList = ObservableList.of(
-      (await RistoranteService.instance.fetchAllRistoranti()),
-    );
+    try {
+      ristorantiList = ObservableList.of(
+        (await RistoranteService.instance.fetchAllRistoranti()),
+      );
+      fetchGaveError = false;
+    } on Exception catch (e) {
+      fetchGaveError = true;
+      log(e.toString());
+    }
+    fetchIsLoading = false;
   }
 
   @action
