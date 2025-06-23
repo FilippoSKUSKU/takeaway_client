@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:takeaway_client/model/insert_elemento_ordine_dto.dart';
 import 'package:takeaway_client/model/portata_dto.dart';
+import 'package:takeaway_client/utility/mob_stores.dart';
 
 class PortataDetail extends StatelessWidget {
   const PortataDetail({super.key, required this.portataDto});
@@ -45,18 +48,41 @@ class PortataDetail extends StatelessWidget {
             Spacer(),
             Row(
               children: [
-                Text(
-                  'quantità',
-                  style: textTheme.labelLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                Observer(
+                  builder:
+                      (_) => RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'quantità: ',
+                              style: textTheme.labelLarge!,
+                            ),
+                            TextSpan(
+                              text:
+                                  kOrdineStore
+                                              .elementiOrdineCorrenteMap
+                                              .isEmpty ||
+                                          !kOrdineStore
+                                              .elementiOrdineCorrenteMap
+                                              .containsKey(portataDto.id)
+                                      ? '0'
+                                      : kOrdineStore
+                                          .elementiOrdineCorrenteMap[portataDto
+                                              .id]
+                                          .toString(),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                 ),
                 Spacer(),
                 IconButton(
                   style: IconButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  onPressed: () {},
+                  onPressed: () => aggiungiPortata(),
                   icon: Icon(
                     Icons.add_rounded,
                     color: Theme.of(context).colorScheme.onPrimary,
@@ -68,5 +94,9 @@ class PortataDetail extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void aggiungiPortata() {
+    kOrdineStore.aggiungiElemento(portataDto.id);
   }
 }

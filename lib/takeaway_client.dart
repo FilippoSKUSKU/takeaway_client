@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeaway_client/ui/screens/base_user/user_restaurant_list_page.dart';
+import 'package:takeaway_client/ui/screens/onboarding/register_screen.dart';
 
 class TakeawayClient extends StatelessWidget {
   const TakeawayClient({super.key});

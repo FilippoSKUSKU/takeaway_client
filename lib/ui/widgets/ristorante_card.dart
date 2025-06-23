@@ -36,7 +36,7 @@ class RistoranteCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                         selected
-                            ? Theme.of(context).colorScheme.primary
+                            ? Theme.of(context).colorScheme.surfaceTint
                             : Theme.of(context).colorScheme.inversePrimary,
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -46,7 +46,7 @@ class RistoranteCard extends StatelessWidget {
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
@@ -58,7 +58,15 @@ class RistoranteCard extends StatelessWidget {
                   child: Wrap(
                     spacing: 16,
                     children:
-                        ristorante.categorie.map((e) => Text(e.nome)).toList(),
+                        ristorante.categorie
+                            .map(
+                              (e) => Text(
+                                e.nome,
+                                style: Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            )
+                            .toList(),
                   ),
                 ),
               ),
