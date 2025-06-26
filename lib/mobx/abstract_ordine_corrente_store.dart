@@ -17,4 +17,14 @@ abstract class _OrdineCorrente with Store {
     }
     elementiOrdineCorrenteMap.update(portataId, (e) => ++e);
   }
+
+  @action
+  void rimuoviElemento(int portataId) {
+    if (elementiOrdineCorrenteMap.containsKey(portataId) &&
+        elementiOrdineCorrenteMap[portataId] == 1) {
+      elementiOrdineCorrenteMap.remove(portataId);
+      return;
+    }
+    elementiOrdineCorrenteMap.update(portataId, (e) => --e);
+  }
 }

@@ -78,16 +78,8 @@ class PortataDetail extends StatelessWidget {
                       ),
                 ),
                 Spacer(),
-                IconButton(
-                  style: IconButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () => aggiungiPortata(),
-                  icon: Icon(
-                    Icons.add_rounded,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
+                IconButton(onPressed: rimuoviPortata, icon: Icon(Icons.remove)),
+                IconButton(onPressed: aggiungiPortata, icon: Icon(Icons.add)),
               ],
             ),
           ],
@@ -98,5 +90,9 @@ class PortataDetail extends StatelessWidget {
 
   void aggiungiPortata() {
     kOrdineStore.aggiungiElemento(portataDto.id);
+  }
+
+  void rimuoviPortata() {
+    kOrdineStore.rimuoviElemento(portataDto.id);
   }
 }

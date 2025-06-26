@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeaway_client/model/ristorante_dto.dart';
+import 'package:takeaway_client/utility/mob_stores.dart';
 import 'package:takeaway_client/utility/my_utility.dart';
 
 class RistoranteCard extends StatelessWidget {
@@ -26,7 +27,56 @@ class RistoranteCard extends StatelessWidget {
       child: SizedBox(
         height: size.height * 0.25,
         child: InkWell(
-          onTap: onSelect,
+          onTap: () {
+            bool altroRistorante = true;
+            for (var id in kOrdineStore.elementiOrdineCorrenteMap.keys) {
+              if (ristorante.categorie.any(
+                (c) => c.portate.map((e) => e.id).contains(id),
+              )) {
+                altroRistorante = false;
+                break;
+              }
+            }
+            if (kOrdineStore.elementiOrdineCorrenteMap.isNotEmpty &&
+                altroRistorante) {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder:
+                    (ctx) => AlertDialog(
+                      content: SizedBox(
+                        width: size.width * 0.3,
+                        child: Text(
+                          'Selenzionando un altro ristorante l\'ordine attuale verrà cancellato',
+                          softWrap: true,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                          },
+                          child: Text('annulla'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            kOrdineStore.elementiOrdineCorrenteMap.clear();
+                            if (onSelect != null) {
+                              onSelect!();
+                            }
+                          },
+                          child: Text('ok'),
+                        ),
+                      ],
+                    ),
+              );
+              return;
+            }
+            if (onSelect != null) {
+              onSelect!();
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

@@ -49,6 +49,18 @@ mixin _$OrdineCorrente on _OrdineCorrente, Store {
   }
 
   @override
+  void rimuoviElemento(int portataId) {
+    final _$actionInfo = _$_OrdineCorrenteActionController.startAction(
+      name: '_OrdineCorrente.rimuoviElemento',
+    );
+    try {
+      return super.rimuoviElemento(portataId);
+    } finally {
+      _$_OrdineCorrenteActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 elementiOrdineCorrenteMap: ${elementiOrdineCorrenteMap}

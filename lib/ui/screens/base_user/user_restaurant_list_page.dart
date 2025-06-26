@@ -39,6 +39,24 @@ class _UserRestaurantListPageState extends State<UserRestaurantListPage> {
     final size = MyUtility.getSize(context);
     final displayType = MyUtility.getDisplayType(context);
     return Scaffold(
+      floatingActionButton: Observer(
+        builder: (_) {
+          int count = 0;
+          for (int a in kOrdineStore.elementiOrdineCorrenteMap.values) {
+            count += a;
+          }
+          return FloatingActionButton(
+            onPressed:
+                kOrdineStore.elementiOrdineCorrenteMap.isEmpty ? null : () {},
+            child: Badge(
+              isLabelVisible: kOrdineStore.elementiOrdineCorrenteMap.isNotEmpty,
+              offset: Offset(15, -15),
+              label: Text('$count'),
+              child: Icon(Icons.dinner_dining),
+            ),
+          );
+        },
+      ),
       appBar: AppBar(
         shadowColor: Theme.of(context).shadowColor,
         elevation: 5,
